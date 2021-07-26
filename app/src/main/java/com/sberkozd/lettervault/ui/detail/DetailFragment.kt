@@ -1,4 +1,5 @@
-package com.sberkozd.lettervault.ui.home
+package com.sberkozd.lettervault.ui.detail
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -6,17 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.databinding.FragmentGridBinding
-import androidx.activity.viewModels
-import com.sberkozd.lettervault.databinding.FragmentHomeBinding
+import com.sberkozd.lettervault.databinding.FragmentAddBinding
+import com.sberkozd.lettervault.databinding.FragmentDetailBinding
+import com.sberkozd.lettervault.ui.add.AddViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class DetailFragment : Fragment(R.layout.fragment_add) {
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val detailViewModel: DetailViewModel by viewModels()
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentDetailBinding? = null
 
     private val binding get() = _binding!!
 
@@ -25,7 +26,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
