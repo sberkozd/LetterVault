@@ -1,6 +1,5 @@
 package com.sberkozd.lettervault.ui.grid
 
-import GridViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

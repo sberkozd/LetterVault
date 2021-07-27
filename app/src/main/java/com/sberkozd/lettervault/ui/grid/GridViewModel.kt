@@ -1,3 +1,5 @@
+package com.sberkozd.lettervault.ui.grid
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sberkozd.lettervault.ui.grid.GridRepository
@@ -10,8 +12,6 @@ class GridViewModel @Inject constructor(val repository: GridRepository) : ViewMo
 
 
     init {
-        viewModelScope.launch {
 
-        }
     }
 }

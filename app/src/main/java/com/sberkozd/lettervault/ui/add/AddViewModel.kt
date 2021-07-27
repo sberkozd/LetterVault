@@ -12,8 +12,6 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
 
 
     init {
-        viewModelScope.launch {
 
-        }
     }
 }

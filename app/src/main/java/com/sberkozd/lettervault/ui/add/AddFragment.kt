@@ -1,6 +1,5 @@
-package com.sberkozd.lettervault.ui.grid
+package com.sberkozd.lettervault.ui.add
 
-import GridViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.databinding.FragmentGridBinding
 import androidx.activity.viewModels
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
 import com.sberkozd.lettervault.ui.add.AddViewModel
