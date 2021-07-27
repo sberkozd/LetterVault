@@ -20,9 +20,9 @@ object DatabaseModule {
     fun provideAppDatabase(
         @ApplicationContext context: Context
     ): LetterDatabase {
-        return Room.databaseBuilder(context, LetterDatabase::class.java, "my_database.db")
+        return Room.databaseBuilder(context, LetterDatabase::class.java, "LetterVault.db")
             .allowMainThreadQueries()
-            .createFromAsset("database/my_database.db")
+            .createFromAsset("database/LetterVault.db")
             .build()
     }
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.databinding.FragmentGridBinding
 import androidx.activity.viewModels
+import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +36,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.addIcon.setOnClickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddFragment())
+        }
+
+        binding.gridIcon.setOnClickListener{
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGridFragment())
+        }
     }
 
 }
