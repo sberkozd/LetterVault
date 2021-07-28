@@ -11,7 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvBinding
 
-class NoteAdapter(var isLocked: Int): RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private val items: MutableList<Note> = mutableListOf()
 
@@ -29,10 +29,10 @@ class NoteAdapter(var isLocked: Int): RecyclerView.Adapter<NoteAdapter.NoteViewH
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.binding.apply {
             this.noteRecyclerViewContext.text =items[position].noteContext
-            if (isLocked == 0) {
+            if (items[position].isLocked == 0) {
                 this.noteRecyclerViewLockClosedIcon.isVisible.not()
             }
-            if(isLocked == 1){
+            if(items[position].isLocked == 1){
                 this.noteRecyclerViewLockOpenedIcon.isVisible.not()
             }
         }

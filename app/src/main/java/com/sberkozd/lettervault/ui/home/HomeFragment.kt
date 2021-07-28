@@ -1,9 +1,8 @@
 package com.sberkozd.lettervault.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,6 +30,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var noteAdapter: NoteAdapter? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,18 +50,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerView()
-
-
-        binding.addIcon.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddFragment())
-        }
-
-        binding.gridIcon.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGridFragment())
-        }
 
         gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+        noteAdapter = NoteAdapter()
         recyclerView = binding.homeFragmentRV
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
@@ -67,17 +61,42 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel.noteList.observe(viewLifecycleOwner, {
             noteAdapter?.setItems(it)
         })
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_home, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home_menu_item_add -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddFragment())
+                true
+            }
+            R.id.home_menu_item_grid -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGridFragment())
+                true
+            }
+            R.id.home_menu_item_more -> {
+                Toast.makeText(context, "To be implemented!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
 
     fun onUpdate(id: Int, note: Note) {
         homeViewModel.updateNote(id, note)
     }
 
-    private fun initRecyclerView() {
-
-        val recyclerView: RecyclerView = requireActivity().findViewById(R.id.homeFragment_RV)
-        recyclerView.adapter = noteAdapter
-
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 
 
