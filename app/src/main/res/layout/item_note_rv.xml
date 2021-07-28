@@ -33,16 +33,25 @@
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_lock_icon"
+                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_lock_closed_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/noteRecyclerView_lock_icon"
+                android:id="@+id/noteRecyclerView_lock_closed_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:srcCompat="@drawable/ic_lock" />
+                app:srcCompat="@drawable/ic_lock_closed" />
+
+            <ImageView
+                android:id="@+id/noteRecyclerView_lock_opened_icon"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:srcCompat="@drawable/ic_lock_opened" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
