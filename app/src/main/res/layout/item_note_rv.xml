@@ -6,8 +6,8 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="220dp"
-        android:layout_height="250dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         app:cardBackgroundColor="@color/purple_200"

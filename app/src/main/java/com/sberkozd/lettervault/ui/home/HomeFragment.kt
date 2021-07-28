@@ -39,12 +39,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initRecyclerView()
 
 
         binding.addIcon.setOnClickListener {
@@ -68,6 +71,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     fun onUpdate(id: Int, note: Note) {
         homeViewModel.updateNote(id, note)
+    }
+
+    private fun initRecyclerView() {
+
+        val recyclerView: RecyclerView = requireActivity().findViewById(R.id.homeFragment_RV)
+        recyclerView.adapter = noteAdapter
+
     }
 
 
