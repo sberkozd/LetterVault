@@ -14,5 +14,7 @@ interface LetterDao {
     @Query("SELECT * FROM note")
     suspend fun getAllNotes(): List<Note>
 
+
+
 }
 

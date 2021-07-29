@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/note_title_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="18dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/note_TV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
