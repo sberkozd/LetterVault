@@ -3,6 +3,7 @@ package com.sberkozd.lettervault.ui.add
 import android.widget.TimePicker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.ui.grid.GridRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,5 +36,19 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
 
     init {
 
+    }
+
+    fun savedDate(): String {
+        return ("$savedDay/$savedMonth/$savedYear")
+    }
+
+    fun savedTime(): String{
+        return ("$savedHour:$savedMinute")
+    }
+
+    fun addNote(note: Note) {
+        viewModelScope.launch {
+            repository.addNote(note)
+        }
     }
 }

@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_gridFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_gridFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"

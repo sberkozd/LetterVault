@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
+import com.sberkozd.lettervault.adapter.NoteAdapter
+import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
+import com.sberkozd.lettervault.db.LetterDao
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +26,8 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     private var _binding: FragmentAddBinding? = null
 
     private val binding get() = _binding!!
+
+    private val isClicked: Boolean? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,10 +56,14 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.add_menu_item_tick -> {
-                findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
-                Toast.makeText(requireContext(), "Note Created!", Toast.LENGTH_SHORT).show()
-                true
-            }
+                    val note = Note(0, "${addViewModel.savedDay} + ${addViewModel.savedMonth} +" +
+                            " ${addViewModel.savedYear} + ${addViewModel.savedHour} + ${addViewModel.savedMinute}",
+                        binding.noteTV.toString(), binding.noteTitleTV.toString(), 0)
+                    addViewModel.addNote(note)
+                    findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
+                    Toast.makeText(requireContext(), "Note created!", Toast.LENGTH_SHORT).show()
+                    true
+                }
             R.id.add_menu_item_time -> {
                 DatePickerDialog(
                     requireContext(),
@@ -71,6 +80,7 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         }
     }
 
+
     private fun pickDate() {
         addViewModel.getDateTimeCalendar()
 
@@ -82,6 +92,7 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
             addViewModel.day
         ).show()
     }
+
 
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

@@ -5,19 +5,14 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.databinding.FragmentGridBinding
-import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.adapter.GridAdapter
-import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.data.Note
-import com.sberkozd.lettervault.databinding.FragmentHomeBinding
-import com.sberkozd.lettervault.ui.home.HomeFragmentDirections
-import com.sberkozd.lettervault.ui.home.HomeViewModel
+import com.sberkozd.lettervault.databinding.FragmentGridBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,9 +30,10 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
     private var gridAdapter: GridAdapter? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+//        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -67,11 +63,22 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             gridAdapter?.setItems(it)
         })
 
+        binding.gridFragmentFab.setOnClickListener {
+            findNavController().navigate(GridFragmentDirections.actionGridFragmentToAddFragment())
+        }
+
+
+
+
     }
+
+    /*
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_grid, menu)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,6 +96,8 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             }
         }
     }
+
+     */
 
 
     fun onUpdate(id: Int, note: Note) {
