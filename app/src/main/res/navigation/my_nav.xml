@@ -7,14 +7,17 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.sberkozd.lettervault.ui.home.HomeFragment"
-        android:label="HomeFragment">
+        android:label="LetterVault">
         <action
+            android:label="LetterVault"
             android:id="@+id/action_homeFragment_to_gridFragment"
             app:destination="@id/gridFragment" />
         <action
+            android:label="Add a note"
             android:id="@+id/action_homeFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
+            android:label="Note Detail"
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>

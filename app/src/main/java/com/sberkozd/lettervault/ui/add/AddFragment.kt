@@ -3,19 +3,20 @@ package com.sberkozd.lettervault.ui.add
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.*
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
-import com.sberkozd.lettervault.db.LetterDao
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetListener,
@@ -26,8 +27,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     private var _binding: FragmentAddBinding? = null
 
     private val binding get() = _binding!!
-
-    private val isClicked: Boolean? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,24 +53,23 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val noteTVEditText = binding.noteTV as EditText
+        val noteTitleTVeditText = binding.noteTitleTV as EditText
+
+        noteTVEditText.inputType = InputType.TYPE_CLASS_TEXT
+        noteTitleTVeditText.inputType = InputType.TYPE_CLASS_TEXT
+
         return when (item.itemId) {
             R.id.add_menu_item_tick -> {
-                    val note = Note(0, "${addViewModel.savedDay} + ${addViewModel.savedMonth} +" +
-                            " ${addViewModel.savedYear} + ${addViewModel.savedHour} + ${addViewModel.savedMinute}",
-                        binding.noteTV.toString(), binding.noteTitleTV.toString(), 0)
-                    addViewModel.addNote(note)
-                    findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
-                    Toast.makeText(requireContext(), "Note created!", Toast.LENGTH_SHORT).show()
-                    true
-                }
+                addViewModel.onSaveMenuItemClicked(noteTitleTVeditText.text,noteTVEditText.text)
+                findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
+                Toast.makeText(requireContext(), "${noteTVEditText.text}", Toast.LENGTH_SHORT).show()
+                true
+            }
             R.id.add_menu_item_time -> {
-                DatePickerDialog(
-                    requireContext(),
-                    this,
-                    addViewModel.year,
-                    addViewModel.month,
-                    addViewModel.day
-                ).show()
+                addViewModel.timeMenuItemClicked()
+
+                pickDate()
                 true
             }
             else -> {
@@ -94,13 +92,11 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     }
 
 
-
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        //addViewModel.onDateSet(year,month,dayOfMonth)
         addViewModel.savedDay = dayOfMonth
         addViewModel.savedMonth = month
         addViewModel.savedYear = year
-
-        addViewModel.getDateTimeCalendar()
 
         TimePickerDialog(
             requireContext(),

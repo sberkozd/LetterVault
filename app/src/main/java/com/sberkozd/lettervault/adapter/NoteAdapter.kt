@@ -32,13 +32,24 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
             if (items[position].isLocked == 0) {
                 this.noteRecyclerViewLockClosedIcon.visibility = View.GONE
                 this.noteRecyclerViewLockOpenedIcon.visibility = View.VISIBLE
-                this.noteRecyclerViewContext.text = "Locked Letter"
+
             } else {
                 this.noteRecyclerViewLockOpenedIcon.visibility = View.GONE
                 this.noteRecyclerViewLockClosedIcon.visibility = View.VISIBLE
+                this.noteRecyclerViewContext.text = "Locked Letter"
+
             }
         }
     }
+
+    /*
+
+
+
+
+
+
+       */
 
     override fun getItemCount() = items.size
 

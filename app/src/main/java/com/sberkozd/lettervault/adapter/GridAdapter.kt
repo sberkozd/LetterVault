@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvGridBinding
 
@@ -30,25 +31,17 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         holder.binding.apply {
             this.noteRecyclerViewGridContext.text = items[position].noteContext
-            this.noteRecyclerViewGridDateOpened.text = items[position].timeUnlocked.toString()
+            this.noteRecyclerViewGridDateOpened.text = items[position].timeUnlocked.convertToDateRepresentation()
             this.noteRecyclerViewGridTitle.text = items[position].noteTitle
             if (items[position].isLocked == 0) {
+                this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
+                this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
+            } else {
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.VISIBLE
                 this.noteRecyclerViewGridContext.text = "Locked Letter"
-            } else {
-                this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
-                this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
 
             }
-            /*
-
-            this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
-                this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
-
-
-
-             */
         }
     }
 

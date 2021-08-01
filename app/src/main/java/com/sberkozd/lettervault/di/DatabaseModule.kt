@@ -21,7 +21,6 @@ object DatabaseModule {
         @ApplicationContext context: Context
     ): LetterDatabase {
         return Room.databaseBuilder(context, LetterDatabase::class.java, "LetterVault.db")
-            .allowMainThreadQueries()
             .createFromAsset("database/LetterVault.db")
             .build()
     }
