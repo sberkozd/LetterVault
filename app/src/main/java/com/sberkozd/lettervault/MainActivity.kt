@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.setupWithNavController(navHostFragment.navController)
 
+
+
         //setupActionBarWithNavController(navHostFragment.navController, AppBarConfiguration(navHostFragment.navController.graph))
 
 

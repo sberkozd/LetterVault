@@ -3,9 +3,12 @@ package com.sberkozd.lettervault.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvBinding
+import com.sberkozd.lettervault.ui.home.HomeFragmentDirections
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
@@ -38,6 +41,9 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
                 this.noteRecyclerViewLockClosedIcon.visibility = View.VISIBLE
                 this.noteRecyclerViewContext.text = "Locked Letter"
 
+            }
+            this.root.setOnClickListener{
+                it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(items[position].id))
             }
         }
     }

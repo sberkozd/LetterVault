@@ -1,9 +1,6 @@
 package com.sberkozd.lettervault.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.sberkozd.lettervault.data.Note
 
 @Dao
@@ -17,6 +14,12 @@ interface LetterDao {
 
     @Insert
     suspend fun addNote(note: Note)
+
+    @Query("SELECT * FROM note WHERE id = :id")
+    suspend fun getNoteByID(id: Int): Note?
+
+    @Delete
+    suspend fun deleteNote(note: Note)
 
 
 

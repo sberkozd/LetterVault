@@ -13,7 +13,6 @@
             android:id="@+id/action_homeFragment_to_gridFragment"
             app:destination="@id/gridFragment" />
         <action
-            android:label="Add a note"
             android:id="@+id/action_homeFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
@@ -24,7 +23,7 @@
     <fragment
         android:id="@+id/gridFragment"
         android:name="com.sberkozd.lettervault.ui.grid.GridFragment"
-        android:label="GridFragment">
+        android:label="Letter Vault">
         <action
             android:id="@+id/action_gridFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -35,7 +34,7 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.sberkozd.lettervault.ui.add.AddFragment"
-        android:label="AddFragment" >
+        android:label="Letter Vault" >
         <action
             android:id="@+id/action_addFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -43,5 +42,12 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.sberkozd.lettervault.ui.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="Letter Vault" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

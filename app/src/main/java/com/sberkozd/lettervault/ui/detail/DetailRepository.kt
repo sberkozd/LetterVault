@@ -10,4 +10,13 @@ class DetailRepository @Inject constructor(private val letterDao: LetterDao) {
         return letterDao.getAllNotes()
     }
 
+    suspend fun deleteNote(note: Note) {
+        letterDao.deleteNote(note)
+    }
+
+    suspend fun getNoteByID(id : Int): Note?{
+        return letterDao.getNoteByID(id)
+    }
+
+
 }

@@ -1,31 +1,33 @@
 package com.sberkozd.lettervault.ui.detail
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.sberkozd.lettervault.data.Note
-import com.sberkozd.lettervault.ui.add.AddRepository
-import com.sberkozd.lettervault.ui.grid.GridRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(val repository: DetailRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(
+    private val repository: DetailRepository,
+    state: SavedStateHandle
+) : ViewModel(){
 
-    var noteList: MutableLiveData<List<Note>> = MutableLiveData()
+    var note: MutableLiveData<Note> = MutableLiveData()
+
+    private val noteId = state.get<Int>("id")
+
+
 
     init {
         viewModelScope.launch {
-            noteList.value = repository.getAllNotes()
+            note.value = repository.getNoteByID(noteId!!) //
         }
     }
 
-    fun updateNote(id: Int, note: Note) {
-        viewModelScope.launch {
-
-            noteList.value = repository.getAllNotes()
+    fun deleteNote(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteNote(note)
         }
     }
 }
-
