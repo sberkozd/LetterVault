@@ -21,7 +21,7 @@
         android:id="@+id/note_TV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Aenean mollis pretium lacus, nec lobortis diam luctus et. Donec tristique erat vitae neque dignissim iaculis. Mauris pharetra risus ut rutrum tempor. Sed convallis urna in imperdiet luctus. Vestibulum malesuada sem rutrum turpis finibus sollicitudin. Sed lobortis accumsan magna, ac consequat sapien rutrum at. Integer non neque ut velit lacinia lobortis. Nulla porta maximus ipsum a ultricies. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam sit amet augue quam. Nunc pellentesque consequat tortor quis malesuada. Integer laoreet augue at nibh malesuada pretium. Proin volutpat, arcu et rutrum congue, lectus diam vestibulum metus, at egestas arcu diam at ex. In malesuada egestas nulla."
+        android:text="Type"
         android:textSize="18dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

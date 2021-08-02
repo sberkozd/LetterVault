@@ -34,10 +34,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
-        detailViewModel.note.observe(viewLifecycleOwner){
+        detailViewModel.note.observe(viewLifecycleOwner) {
             binding.apply {
                 detailNoteTV.setText(it.noteContext)
                 detailNoteTitleTV.setText(it.noteTitle)
+                if (it.isLocked == 0) {
+                    detailIsLockedIcon.visibility = View.GONE
+                } else {
+                    detailIsLockedIcon.visibility = View.VISIBLE
+                    detailNoteTitleTV.visibility = View.GONE
+                    detailNoteTV.visibility = View.GONE
+                }
             }
         }
 
@@ -78,21 +85,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
 
-
-    private fun deleteNote(){
+    private fun deleteNote() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes"){ _ , _ ->
+        builder.setPositiveButton("Yes") { _, _ ->
 
             Toast.makeText(requireContext(), "Successfully deleted", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
         }
-        builder.setNegativeButton("No"){_,_->
+        builder.setNegativeButton("No") { _, _ ->
             builder.setTitle("Delete Note? ")
             builder.setMessage("Are you sure you want to delete the note?")
             builder.create().show()
         }
     }
-
 
 
 }

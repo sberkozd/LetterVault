@@ -3,10 +3,13 @@ package com.sberkozd.lettervault.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvGridBinding
+import com.sberkozd.lettervault.ui.grid.GridFragmentDirections
+import com.sberkozd.lettervault.ui.home.HomeFragmentDirections
 
 class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
@@ -41,6 +44,9 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.VISIBLE
                 this.noteRecyclerViewGridContext.text = "Locked Letter"
 
+            }
+            this.root.setOnClickListener{
+                it.findNavController().navigate(GridFragmentDirections.actionGridFragmentToDetailFragment(items[position].id))
             }
         }
     }

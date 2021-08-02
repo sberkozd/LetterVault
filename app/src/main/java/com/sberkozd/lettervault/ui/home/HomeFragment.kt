@@ -1,6 +1,5 @@
 package com.sberkozd.lettervault.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -77,7 +76,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 true
             }
             R.id.home_menu_item_grid -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGridFragment())
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToGridFragment(
+                        id
+                    )
+                )
                 true
             }
             R.id.home_menu_item_more -> {

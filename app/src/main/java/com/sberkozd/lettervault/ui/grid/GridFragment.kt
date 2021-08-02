@@ -2,7 +2,6 @@ package com.sberkozd.lettervault.ui.grid
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -68,37 +67,7 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
         }
 
 
-
-
     }
-
-    /*
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_grid, menu)
-
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.grid_menu_item_more -> {
-                Toast.makeText(context, "To be implemented!", Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.grid_menu_item_back -> {
-                findNavController().navigate(GridFragmentDirections.actionGridFragmentToHomeFragment())
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
-    }
-
-     */
-
 
     fun onUpdate(id: Int, note: Note) {
         gridViewModel.updateNote(id, note)
