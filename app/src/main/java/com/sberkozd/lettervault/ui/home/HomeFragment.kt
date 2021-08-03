@@ -94,10 +94,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
 
-    fun onUpdate(id: Int, note: Note) {
-        homeViewModel.updateNote(id, note)
-    }
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()

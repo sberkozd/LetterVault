@@ -19,11 +19,6 @@ class HomeViewModel @Inject constructor(val repository: HomeRepository) : ViewMo
         }
     }
 
-    fun updateNote(id: Int, note: Note) {
-        viewModelScope.launch {
 
-            noteList.value = repository.getAllNotes()
-        }
-    }
 }
 

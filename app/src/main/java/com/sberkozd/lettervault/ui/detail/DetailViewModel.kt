@@ -1,5 +1,7 @@
 package com.sberkozd.lettervault.ui.detail
 
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
 import com.sberkozd.lettervault.data.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,4 +32,5 @@ class DetailViewModel @Inject constructor(
             repository.deleteNote(note)
         }
     }
+
 }

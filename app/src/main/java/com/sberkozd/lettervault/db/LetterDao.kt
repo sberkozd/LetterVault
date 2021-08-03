@@ -7,7 +7,7 @@ import com.sberkozd.lettervault.data.Note
 interface LetterDao {
 
     @Update
-    suspend fun updateUser(note: Note)
+    suspend fun updateNote(note: Note)
 
     @Query("SELECT * FROM note")
     suspend fun getAllNotes(): List<Note>
