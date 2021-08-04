@@ -1,8 +1,9 @@
 package com.sberkozd.lettervault.ui.detail
 
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sberkozd.lettervault.data.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,12 +14,11 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val repository: DetailRepository,
     state: SavedStateHandle
-) : ViewModel(){
+) : ViewModel() {
 
     var note: MutableLiveData<Note> = MutableLiveData()
 
     private val noteId = state.get<Int>("id")
-
 
 
     init {
@@ -30,6 +30,16 @@ class DetailViewModel @Inject constructor(
     fun deleteNote(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteNote(note)
+        }
+    }
+
+    fun updateNote(title: String, desc: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            note.value?.apply {
+                noteTitle = title
+                noteContext = desc
+                repository.updateNote(this)
+            }
         }
     }
 
