@@ -102,8 +102,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         detailNoteTVEditText.inputType = InputType.TYPE_CLASS_TEXT
         detailNoteTitleTVEditText.inputType = InputType.TYPE_CLASS_TEXT
 
+
         val detailNoteTVString: String = detailNoteTVEditText.text.toString()
         val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
+        val detailNoteIsLocked: Int =
 
         return when (item.itemId) {
             R.id.detail_menu_item_delete -> {
@@ -111,10 +113,18 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 true
             }
             R.id.detail_menu_item_share -> {
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.type = "text/plain"
-                shareIntent.putExtra(Intent.EXTRA_TEXT, detailNoteTVString)
-                startActivity(Intent.createChooser(shareIntent, "Share using ..."))
+                detailViewModel.note.observe(viewLifecycleOwner) {
+                    binding.apply {
+                        if (it.isLocked == 1) {
+                            Toast.makeText(requireContext(), "You can not share a locked note!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            val shareIntent = Intent(Intent.ACTION_SEND)
+                            shareIntent.type = "text/plain"
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, detailNoteTVString)
+                            startActivity(Intent.createChooser(shareIntent, "Share using ..."))
+                        }
+                    }
+                }
                 true
             }
             else -> {
