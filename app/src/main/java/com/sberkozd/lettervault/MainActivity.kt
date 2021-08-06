@@ -1,8 +1,12 @@
 package com.sberkozd.lettervault
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Html
 import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
@@ -34,7 +38,12 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
+
+
         toolbar.setupWithNavController(navHostFragment.navController)
+
+        navHostFragment.navController.addOnDestinationChangedListener {
+                nav, destination, arguments ->  }
 
 
         //setupActionBarWithNavController(navHostFragment.navController, AppBarConfiguration(navHostFragment.navController.graph))
@@ -42,9 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
+    
     override fun onSupportNavigateUp(): Boolean {
         return if (onBackPressedDispatcher.hasEnabledCallbacks()) {
             onBackPressedDispatcher.onBackPressed()
@@ -53,5 +60,6 @@ class MainActivity : AppCompatActivity() {
             navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
         }
     }
+
 
 }

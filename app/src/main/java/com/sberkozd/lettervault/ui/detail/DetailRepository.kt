@@ -2,6 +2,7 @@ package com.sberkozd.lettervault.ui.detail
 
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.db.LetterDao
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class DetailRepository @Inject constructor(private val letterDao: LetterDao) {

@@ -27,12 +27,6 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun deleteNote(note: Note) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteNote(note)
-        }
-    }
-
     fun updateNote(title: String, desc: String) {
         viewModelScope.launch(Dispatchers.IO) {
             note.value?.apply {
@@ -40,6 +34,12 @@ class DetailViewModel @Inject constructor(
                 noteContext = desc
                 repository.updateNote(this)
             }
+        }
+    }
+
+    fun deleteNote(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteNote(note)
         }
     }
 

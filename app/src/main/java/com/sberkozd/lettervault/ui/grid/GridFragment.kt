@@ -1,7 +1,9 @@
 package com.sberkozd.lettervault.ui.grid
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -10,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.adapter.GridAdapter
-import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentGridBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,9 +70,6 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
     }
 
-    fun onUpdate(id: Int, note: Note) {
-        gridViewModel.updateNote(id, note)
-    }
 
     override fun onDestroyView() {
         _binding = null

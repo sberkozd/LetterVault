@@ -3,6 +3,7 @@ package com.sberkozd.lettervault.ui.home
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentHomeBinding
+import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +35,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
     }
 
     override fun onCreateView(

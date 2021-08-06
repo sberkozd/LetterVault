@@ -17,6 +17,21 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="18dp" />
 
+    <TextView
+        android:id="@+id/detail_note_date_opened"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:text="Note "
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/detail_note_TV"
         android:layout_width="0dp"

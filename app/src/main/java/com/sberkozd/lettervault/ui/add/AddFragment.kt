@@ -9,12 +9,14 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
+import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,6 +34,8 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
     }
 
     override fun onCreateView(
@@ -45,11 +49,15 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_add, menu)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
+import com.sberkozd.lettervault.convertToDateRepresentation
+import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +34,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+
     }
 
     override fun onCreateView(
@@ -45,15 +49,20 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             binding.apply {
                 detailNoteTV.setText(it.noteContext)
                 detailNoteTitleTV.setText(it.noteTitle)
+                detailNoteDateOpened.text = it.timeUnlocked.convertToDateRepresentation()
                 if (it.isLocked == 0) {
                     detailIsLockedIcon.visibility = View.GONE
+                    activity?.title =  this.detailNoteDateOpened.text
                 } else {
                     detailIsLockedIcon.visibility = View.VISIBLE
                     detailNoteTitleTV.visibility = View.GONE
                     detailNoteTV.visibility = View.GONE
+                    activity?.title = this.detailNoteDateOpened.text
                 }
+
             }
         }
+
 
 
         return binding.root
@@ -61,6 +70,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         binding.detailNoteTV.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -87,7 +98,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,backButtonCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            backButtonCallback
+        )
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -105,18 +121,20 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         val detailNoteTVString: String = detailNoteTVEditText.text.toString()
         val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
-        val detailNoteIsLocked: Int =
 
         return when (item.itemId) {
             R.id.detail_menu_item_delete -> {
-                deleteNote()
                 true
             }
             R.id.detail_menu_item_share -> {
                 detailViewModel.note.observe(viewLifecycleOwner) {
                     binding.apply {
                         if (it.isLocked == 1) {
-                            Toast.makeText(requireContext(), "You can not share a locked note!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "You can not share a locked note!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         } else {
                             val shareIntent = Intent(Intent.ACTION_SEND)
                             shareIntent.type = "text/plain"
@@ -134,7 +152,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
 
-    private fun deleteNote() {
+    private fun deleteNote(note: Note) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
 
@@ -147,7 +165,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             builder.create().show()
         }
     }
-
 
 
 }
