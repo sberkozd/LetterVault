@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/detail_note_title_TV"
         android:layout_width="wrap_content"

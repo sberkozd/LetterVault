@@ -25,13 +25,14 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
     var savedHour = 0
     var savedMinute = 0
 
-    fun getDateTimeCalendar() {
+    fun getDateTimeCalendar() : Calendar {
         val cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"))
         day = cal.get(Calendar.DAY_OF_MONTH)
         month = cal.get(Calendar.MONTH)
         year = cal.get(Calendar.YEAR)
         hour = cal.get(Calendar.HOUR_OF_DAY)
         minute = cal.get(Calendar.MINUTE)
+        return cal
     }
 
     fun addNote(note: Note) {
@@ -56,7 +57,7 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
             calendar.set(HOUR_OF_DAY, savedHour)
             calendar.set(MINUTE, savedMinute)
             unlockTime = calendar.time.time.toString()
-        }else{
+        }else{ // if no time selected let the current time set as the unlock time
             unlockTime = ""
         }
 
@@ -65,6 +66,8 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
             description.toString(), title.toString(), if(unlockTime.isEmpty()) 0 else 1)
 
         addNote(note)
+
+
     }
 
 

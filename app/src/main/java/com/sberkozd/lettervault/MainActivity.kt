@@ -6,10 +6,12 @@ import android.text.Html
 import android.view.MenuItem
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.size
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
+import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,12 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-
-
         toolbar.setupWithNavController(navHostFragment.navController)
-
-        navHostFragment.navController.addOnDestinationChangedListener {
-                nav, destination, arguments ->  }
 
 
         //setupActionBarWithNavController(navHostFragment.navController, AppBarConfiguration(navHostFragment.navController.graph))

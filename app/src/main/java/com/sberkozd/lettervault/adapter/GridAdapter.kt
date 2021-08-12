@@ -9,7 +9,6 @@ import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvGridBinding
 import com.sberkozd.lettervault.ui.grid.GridFragmentDirections
-import com.sberkozd.lettervault.ui.home.HomeFragmentDirections
 
 class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
@@ -31,12 +30,25 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
 
     }
 
+
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         holder.binding.apply {
             this.noteRecyclerViewGridContext.text = items[position].noteContext
-            this.noteRecyclerViewGridDateOpened.text = items[position].timeUnlocked.convertToDateRepresentation()
+            this.noteRecyclerViewGridDateOpened.text = items[position].timeUnlocked.let {
+                if (it.isBlank()) {
+                    ""
+                } else {
+                    it.convertToDateRepresentation()
+                }
+            }
             this.noteRecyclerViewGridTitle.text = items[position].noteTitle
             if (items[position].isLocked == 0) {
+                if(items[position].timeUnlocked.isBlank()){
+                    this.noteRecyclerViewGridOpenedTV.visibility = View.GONE
+                }else{
+                    this.noteRecyclerViewGridOpenedTV.visibility = View.VISIBLE
+                    this.noteRecyclerViewGridOpenedTV.text = "Opened: "
+                }
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
             } else {
@@ -46,8 +58,9 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
                 this.noteRecyclerViewGridContext.text = "Locked Letter"
 
             }
-            this.root.setOnClickListener{
-                it.findNavController().navigate(GridFragmentDirections.actionGridFragmentToDetailFragment(items[position].id))
+            this.root.setOnClickListener {
+                it.findNavController()
+                    .navigate(GridFragmentDirections.actionGridFragmentToDetailFragment(items[position].id))
             }
         }
     }
@@ -61,6 +74,7 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
         var dateOpened = binding.noteRecyclerViewGridDateOpened
         var lockClosed = binding.noteRecyclerViewGridLockClosedIcon
         var lockOpened = binding.noteRecyclerViewGridLockOpenedIcon
+        var labelOpened = binding.noteRecyclerViewGridOpenedTV
     }
 }
 

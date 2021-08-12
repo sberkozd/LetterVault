@@ -3,6 +3,8 @@ package com.sberkozd.lettervault.ui.detail
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.system.Os.bind
+import android.system.Os.remove
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -14,6 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
+import com.sberkozd.lettervault.adapter.GridAdapter
+import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentDetailBinding
@@ -49,7 +53,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             binding.apply {
                 detailNoteTV.setText(it.noteContext)
                 detailNoteTitleTV.setText(it.noteTitle)
-                detailNoteDateOpened.text = it.timeUnlocked.convertToDateRepresentation()
+                detailNoteDateOpened.text =it.timeUnlocked.let {
+                    if(it.isBlank()) "" else it.convertToDateRepresentation()
+                }
                 if (it.isLocked == 0) {
                     detailIsLockedIcon.visibility = View.GONE
                     activity?.title =  this.detailNoteDateOpened.text
@@ -120,10 +126,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
         val detailNoteTVString: String = detailNoteTVEditText.text.toString()
-        val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
+       // val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
+
 
         return when (item.itemId) {
             R.id.detail_menu_item_delete -> {
+                detailViewModel.deleteNote()
+                backButtonCallback.remove()
+                findNavController().popBackStack()
                 true
             }
             R.id.detail_menu_item_share -> {

@@ -48,19 +48,13 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         }
     }
 
-    /*
 
-
-
-
-
-
-       */
 
     override fun getItemCount() = items.size
 
     class NoteViewHolder(val binding: ItemNoteRvBinding) : RecyclerView.ViewHolder(binding.root) {
         var note = binding.noteRecyclerViewContext
     }
+
 }
 

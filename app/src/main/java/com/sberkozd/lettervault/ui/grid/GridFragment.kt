@@ -52,16 +52,18 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         gridAdapter = GridAdapter()
         recyclerView = binding.gridFragmentRV
         recyclerView?.layoutManager = gridLayoutManager
         recyclerView?.setHasFixedSize(true)
         recyclerView?.adapter = gridAdapter
-
+        gridViewModel.onCreate()
         gridViewModel.noteList.observe(viewLifecycleOwner, {
             gridAdapter?.setItems(it)
         })
+
 
         binding.gridFragmentFab.setOnClickListener {
             findNavController().navigate(GridFragmentDirections.actionGridFragmentToAddFragment())
@@ -71,9 +73,19 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
     }
 
 
+
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        gridViewModel.onCreate()
+        gridViewModel.noteList.observe(viewLifecycleOwner, {
+            gridAdapter?.setItems(it)
+        })
     }
 
 

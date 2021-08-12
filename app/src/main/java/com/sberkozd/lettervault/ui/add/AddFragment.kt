@@ -70,13 +70,13 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         return when (item.itemId) {
             R.id.add_menu_item_tick -> {
                 addViewModel.onSaveMenuItemClicked(noteTitleTVeditText.text,noteTVEditText.text)
-                findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
+                findNavController().popBackStack()
+                //findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
                 Toast.makeText(requireContext(), "${noteTVEditText.text}", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.add_menu_item_time -> {
                 addViewModel.timeMenuItemClicked()
-
                 pickDate()
                 true
             }

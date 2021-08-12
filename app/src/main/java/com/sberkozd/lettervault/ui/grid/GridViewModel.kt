@@ -11,9 +11,10 @@ import javax.inject.Inject
 @HiltViewModel
 class GridViewModel @Inject constructor(val repository: GridRepository) : ViewModel() {
 
-    var noteList: MutableLiveData<List<Note>> = MutableLiveData()
+    val noteList: MutableLiveData<List<Note>> = MutableLiveData()
 
-    init {
+
+    fun onCreate(){
         viewModelScope.launch {
             noteList.value = repository.getAllNotes()
         }
