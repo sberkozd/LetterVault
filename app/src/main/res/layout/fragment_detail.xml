@@ -55,6 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="120dp"
+        android:visibility="gone"
         android:layout_height="120dp"
         app:srcCompat="@drawable/ic_lock_closed" />
 

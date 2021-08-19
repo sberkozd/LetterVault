@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class AddRepository @Inject constructor(private val letterDao: LetterDao) {
 
-    suspend fun addNote(note: Note) {
-        return letterDao.addNote(note)
+    suspend fun addNote(note: Note): Int {
+        return letterDao.addNote(note).toInt()
     }
 }

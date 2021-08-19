@@ -2,22 +2,29 @@ package com.sberkozd.lettervault.ui.add
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.*
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
-import androidx.core.app.NotificationManagerCompat
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
-import com.sberkozd.lettervault.notification.NotificationHelper
+import com.sberkozd.lettervault.notification.NotifyWorker
+import com.sberkozd.lettervault.observeInLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
+import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -57,9 +64,20 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_add, menu)
 
+        addViewModel.eventsFlow.onEach {
+            when (it) {
+                is AddViewModel.Event.noteAdded -> {
+                    it.difference?.let { diff ->
+                        scheduleToast(diff, it.noteId)
+                    }
+                    findNavController().popBackStack()
+                }
+            }
+        }.observeInLifecycle(viewLifecycleOwner)
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val noteTVEditText = binding.noteTV as EditText
         val noteTitleTVeditText = binding.noteTitleTV as EditText
@@ -69,10 +87,17 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
 
         return when (item.itemId) {
             R.id.add_menu_item_tick -> {
-                addViewModel.onSaveMenuItemClicked(noteTitleTVeditText.text,noteTVEditText.text)
-                findNavController().popBackStack()
+
+
+                addViewModel.onSaveMenuItemClicked(noteTitleTVeditText.text, noteTVEditText.text)
+                //findNavController().popBackStack()
                 //findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
-                Toast.makeText(requireContext(), "${noteTVEditText.text}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${noteTVEditText.text}", Toast.LENGTH_SHORT)
+                    .show()
+
+                // Toast.makeText(requireContext(), "${addViewModel.onSaveMenuItemClicked()}", Toast.LENGTH_SHORT).show()
+
+                // call create notification function here
                 true
             }
             R.id.add_menu_item_time -> {
@@ -84,6 +109,28 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun scheduleToast(difference: Long, noteId: Int) {
+        //we set a tag to be able to cancel all work of this type if needed
+        val workTag = "notificationWork"
+
+        //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
+        val inputData: Data = Data.Builder().putInt("noteId", noteId).build()
+        // we then retrieve it inside the NotifyWorker with:
+        // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
+
+        val notificationWork = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
+//            .setInitialDelay(difference, TimeUnit.SECONDS)
+            .setInitialDelay(difference, TimeUnit.SECONDS)
+            .setInputData(inputData)
+            .addTag(workTag)
+            .build()
+
+        Log.e("Michy2", difference.toString())
+
+        WorkManager.getInstance(requireContext()).enqueue(notificationWork);
+
     }
 
 

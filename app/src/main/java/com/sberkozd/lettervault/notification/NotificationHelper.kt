@@ -12,35 +12,51 @@ import androidx.core.app.NotificationManagerCompat
 import com.sberkozd.lettervault.MainActivity
 import com.sberkozd.lettervault.R
 
-class NotificationHelper : BroadcastReceiver()  {
+
+class NotificationHelper : BroadcastReceiver() {
 
 
-    fun createNotificationChannel(context: Context, importance: Int, showBadge: Boolean, name: String, description: String) {
-        // 1
+    fun createNotificationChannel(
+        context: Context,
+        importance: Int,
+        showBadge: Boolean,
+        name: String,
+        description: String
+    ) {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            // 2
-            val channelId = "${context.packageName}-$name"
-            val channel = NotificationChannel(channelId, name, importance)
-            channel.description = description
-            channel.setShowBadge(showBadge)
-
-            // 3
             val notificationManager = context.getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+
+            val channelId = "${context.packageName}-$name"
+
+            if (notificationManager.getNotificationChannel(channelId) == null) {
+                val channel = NotificationChannel(channelId, name, importance)
+                channel.description = description
+                channel.setShowBadge(showBadge)
+
+                notificationManager.createNotificationChannel(channel)
+            }
         }
     }
 
-    fun createSampleDataNotification(context: Context, importance: Int, showBadge: Boolean, name: String, description: String){
+    fun sendNoteUnlockedNotification(
+        context: Context,
+        importance: Int,
+        showBadge: Boolean,
+        name: String,
+        description: String
+    ) {
 
         val channelId = "${context.packageName}-${context.getString(R.string.app_name)}"
 
         val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
             setSmallIcon(R.drawable.ic_add) // 3
-            setContentTitle("Unlocked note!") // 4
-            setContentText("Test 2") // 5
-            setStyle(NotificationCompat.BigTextStyle().bigText("A note has been unlocked. Tap to view")) // 6
-            priority = NotificationCompat.PRIORITY_DEFAULT // 7
+            setContentTitle(name) // 4
+            setContentText(description) // 5
+            setStyle(
+                NotificationCompat.BigTextStyle().bigText("A note has been unlocked. Tap to view")
+            ) // 6
+            priority = NotificationCompat.PRIORITY_HIGH // 7
             setAutoCancel(true) // 8
 
             // 1
@@ -60,7 +76,21 @@ class NotificationHelper : BroadcastReceiver()  {
     }
 
 
+//    @RequiresApi(Build.VERSION_CODES.M)
+//    fun scheduleNotification(context: Context, time: Long, title: String?, text: String?) {
+//        val intent = Intent(context, NotificationHelper::class.java)
+//        intent.putExtra("title", title)
+//        intent.putExtra("text", text)
+//        val pending =
+//            PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//        // Schedule notification
+//        val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending)
+//    }
+
+
     override fun onReceive(context: Context?, intent: Intent?) {
+
 
     }
 

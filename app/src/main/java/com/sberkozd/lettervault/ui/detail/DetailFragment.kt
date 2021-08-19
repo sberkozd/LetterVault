@@ -3,8 +3,6 @@ package com.sberkozd.lettervault.ui.detail
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.system.Os.bind
-import android.system.Os.remove
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -16,10 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.adapter.GridAdapter
-import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.convertToDateRepresentation
-import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,12 +48,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             binding.apply {
                 detailNoteTV.setText(it.noteContext)
                 detailNoteTitleTV.setText(it.noteTitle)
-                detailNoteDateOpened.text =it.timeUnlocked.let {
-                    if(it.isBlank()) "" else it.convertToDateRepresentation()
+                detailNoteDateOpened.text = it.timeUnlocked.let {
+                    if (it.isBlank()) "" else it.convertToDateRepresentation()
                 }
                 if (it.isLocked == 0) {
                     detailIsLockedIcon.visibility = View.GONE
-                    activity?.title =  this.detailNoteDateOpened.text
+                    activity?.title = this.detailNoteDateOpened.text
                 } else {
                     detailIsLockedIcon.visibility = View.VISIBLE
                     detailNoteTitleTV.visibility = View.GONE
@@ -126,14 +121,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
         val detailNoteTVString: String = detailNoteTVEditText.text.toString()
-       // val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
+        // val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
 
 
         return when (item.itemId) {
             R.id.detail_menu_item_delete -> {
-                detailViewModel.deleteNote()
-                backButtonCallback.remove()
-                findNavController().popBackStack()
+                showWarningForDeletion()
                 true
             }
             R.id.detail_menu_item_share -> {
@@ -162,18 +155,24 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
 
-    private fun deleteNote(note: Note) {
+    private fun showWarningForDeletion() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
 
-            Toast.makeText(requireContext(), "Successfully deleted", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+//            Toast.makeText(requireContext(), "Successfully deleted", Toast.LENGTH_SHORT).show()
+//            findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
+//
+            detailViewModel.deleteNote()
+            backButtonCallback.remove()
+            findNavController().popBackStack()
         }
         builder.setNegativeButton("No") { _, _ ->
-            builder.setTitle("Delete Note? ")
-            builder.setMessage("Are you sure you want to delete the note?")
-            builder.create().show()
+
         }
+
+        builder.setTitle("Delete Note?")
+        builder.setMessage("Are you sure you want to delete the note?")
+        builder.create().show()
     }
 
 
