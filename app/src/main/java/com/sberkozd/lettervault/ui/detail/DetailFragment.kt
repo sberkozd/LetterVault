@@ -104,7 +104,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             backButtonCallback
         )
 
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -119,10 +118,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         detailNoteTVEditText.inputType = InputType.TYPE_CLASS_TEXT
         detailNoteTitleTVEditText.inputType = InputType.TYPE_CLASS_TEXT
 
-
         val detailNoteTVString: String = detailNoteTVEditText.text.toString()
-        // val detailNoteTitleTVString: String = detailNoteTitleTVEditText.text.toString()
-
 
         return when (item.itemId) {
             R.id.detail_menu_item_delete -> {
@@ -159,9 +155,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
 
-//            Toast.makeText(requireContext(), "Successfully deleted", Toast.LENGTH_SHORT).show()
-//            findNavController().navigate(R.id.action_detailFragment_to_homeFragment)
-//
             detailViewModel.deleteNote()
             backButtonCallback.remove()
             findNavController().popBackStack()

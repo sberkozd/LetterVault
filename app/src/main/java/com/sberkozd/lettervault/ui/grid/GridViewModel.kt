@@ -13,11 +13,9 @@ class GridViewModel @Inject constructor(val repository: GridRepository) : ViewMo
 
     val noteList: MutableLiveData<List<Note>> = MutableLiveData()
 
-
-    fun onCreate(){
+    fun onCreate() {
         viewModelScope.launch {
             noteList.value = repository.getAllNotes()
         }
     }
-
 }

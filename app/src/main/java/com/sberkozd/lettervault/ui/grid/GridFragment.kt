@@ -33,7 +33,6 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -43,15 +42,12 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
     ): View {
 
         _binding = FragmentGridBinding.inflate(inflater, container, false)
-
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         gridAdapter = GridAdapter()
@@ -64,16 +60,10 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             gridAdapter?.setItems(it)
         })
 
-
         binding.gridFragmentFab.setOnClickListener {
             findNavController().navigate(GridFragmentDirections.actionGridFragmentToAddFragment())
         }
-
-
     }
-
-
-
 
     override fun onDestroyView() {
         _binding = null
@@ -87,6 +77,4 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             gridAdapter?.setItems(it)
         })
     }
-
-
 }

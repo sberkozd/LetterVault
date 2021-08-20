@@ -8,8 +8,8 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/add_menu_item_tick"
-        android:title="Tick"
         android:icon="@drawable/ic_confirm"
+        android:title="Tick"
         app:showAsAction="always" />
 
 </menu>

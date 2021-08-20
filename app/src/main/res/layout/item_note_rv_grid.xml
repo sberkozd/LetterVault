@@ -29,9 +29,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Note Title"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,13 +40,13 @@
                 android:id="@+id/noteRecyclerView_Grid_context"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="Note "
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                android:layout_marginTop="5dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon"
-                app:layout_constraintTop_toBottomOf="@id/noteRecyclerView_Grid_title"/>
+                app:layout_constraintTop_toBottomOf="@id/noteRecyclerView_Grid_title" />
 
 
             <TextView
@@ -57,9 +57,9 @@
                 android:text="Date"
                 android:textColor="@color/black"
                 android:textSize="9sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon" />
 
             <TextView
                 android:id="@+id/noteRecyclerView_Grid_opened_TV"
@@ -69,9 +69,9 @@
                 android:text="Opened:"
                 android:textColor="@color/black"
                 android:textSize="9sp"
+                app:layout_constraintBottom_toTopOf="@id/noteRecyclerView_Grid_dateOpened"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon"
-                app:layout_constraintBottom_toTopOf="@id/noteRecyclerView_Grid_dateOpened"/>
+                app:layout_constraintRight_toLeftOf="@id/noteRecyclerView_Grid_lock_closed_icon" />
 
             <ImageView
                 android:id="@+id/noteRecyclerView_Grid_lock_closed_icon"

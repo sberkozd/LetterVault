@@ -40,7 +40,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val notificationHelper = NotificationHelper()
 
-
         notificationHelper.createNotificationChannel(
             requireContext(),
             NotificationManagerCompat.IMPORTANCE_HIGH, true,
@@ -86,8 +85,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
                 }
             })
-
-
     }
 
 
@@ -101,11 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         return when (item.itemId) {
             R.id.home_menu_item_add -> {
 
-
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToAddFragment())
-                // scheduleToast()
-
-                //NotificationPublisher.
 
                 true
             }
@@ -121,15 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 true
             }
             R.id.home_menu_item_more -> {
-                val notificationHelper = NotificationHelper()
 
-            /*    context?.let {
-                    notificationHelper.sendNoteUnlockedNotification(
-                        it, 2,
-                        true, "Letter Vault", "You have an unlocked note!"
-                    )
-                }
-*/
                 Toast.makeText(context, "To be implemented!", Toast.LENGTH_SHORT).show()
                 true
             }

@@ -3,7 +3,6 @@ package com.sberkozd.lettervault.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sberkozd.lettervault.data.Note
@@ -25,10 +24,6 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         notifyDataSetChanged()
     }
 
-    init {
-
-    }
-
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.binding.apply {
             this.noteRecyclerViewContext.text = items[position].noteContext
@@ -42,13 +37,12 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
                 this.noteRecyclerViewContext.text = "Locked Letter"
 
             }
-            this.root.setOnClickListener{
-                it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(items[position].id))
+            this.root.setOnClickListener {
+                it.findNavController()
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(items[position].id))
             }
         }
     }
-
-
 
     override fun getItemCount() = items.size
 

@@ -52,15 +52,15 @@ class NotificationHelper : BroadcastReceiver() {
         val channelId = "${context.packageName}-${context.getString(R.string.app_name)}"
 
         val notificationBuilder = NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(R.drawable.ic_add) // 3
-            setContentTitle(name) // 4
-            setContentText(description) // 5
+            setSmallIcon(R.drawable.ic_add)
+            setContentTitle(name)
+            setContentText(description)
             setStyle(
                 NotificationCompat.BigTextStyle().bigText("A note has been unlocked. Tap to view")
-            ) // 6
+            )
 
-            priority = NotificationCompat.PRIORITY_HIGH // 7
-            setAutoCancel(true) // 8
+            priority = NotificationCompat.PRIORITY_HIGH
+            setAutoCancel(true)
 
 
             val bundle = Bundle()
@@ -72,38 +72,20 @@ class NotificationHelper : BroadcastReceiver() {
                 .setDestination(R.id.detailFragment)
                 .setArguments(bundle)
                 .createPendingIntent()
-            // 3
+
             setContentIntent(pendingIntent)
-
-
         }
 
 
-        // 1
         val notificationManager = NotificationManagerCompat.from(context)
-        // 2
+
         notificationManager.notify(1001, notificationBuilder.build())
 
     }
-
-
-//    @RequiresApi(Build.VERSION_CODES.M)
-//    fun scheduleNotification(context: Context, time: Long, title: String?, text: String?) {
-//        val intent = Intent(context, NotificationHelper::class.java)
-//        intent.putExtra("title", title)
-//        intent.putExtra("text", text)
-//        val pending =
-//            PendingIntent.getBroadcast(context, 42, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//        // Schedule notification
-//        val manager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pending)
-//    }
 
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
 
     }
-
-
 }

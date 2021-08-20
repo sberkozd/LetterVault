@@ -1,17 +1,10 @@
 package com.sberkozd.lettervault
 
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Html
-import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.view.size
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
-import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,18 +16,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-
-
-        /*    val inflater = navHostFragment.navController.navInflater
-            val graph = inflater.inflate(R.navigation.my_nav)
-            navHostFragment.navController.graph = graph
-
-            NavigationUI.setupWithNavController(binding.toolbar,navHostFragment.navController)
-
-         */
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
 
@@ -42,13 +25,8 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.setupWithNavController(navHostFragment.navController)
 
-
-        //setupActionBarWithNavController(navHostFragment.navController, AppBarConfiguration(navHostFragment.navController.graph))
-
-
     }
 
-    
     override fun onSupportNavigateUp(): Boolean {
         return if (onBackPressedDispatcher.hasEnabledCallbacks()) {
             onBackPressedDispatcher.onBackPressed()
@@ -57,6 +35,4 @@ class MainActivity : AppCompatActivity() {
             navHostFragment.navController.navigateUp() || super.onSupportNavigateUp()
         }
     }
-
-
 }

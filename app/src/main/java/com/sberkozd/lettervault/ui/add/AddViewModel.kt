@@ -2,7 +2,6 @@ package com.sberkozd.lettervault.ui.add
 
 import android.os.Build
 import android.text.Editable
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -51,10 +50,6 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
     }
 
 
-    fun timeRemainingToUnlockNote() {
-
-    }
-
     fun timeMenuItemClicked() {
 
     }
@@ -75,25 +70,7 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
             calendar.set(MINUTE, savedMinute)
             unlockTime = calendar.time.time.toString()
 
-//            val l = LocalDate.parse(unlockTime, DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm"))
-//
-//            val c = LocalDate.parse(
-//                getDateTimeCalendar().time.time.toString(),
-//                DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm")
-//            )
-
             difference = (unlockTime.toLong() - getDateTimeCalendar().time.time) / 1000
-
-            Log.e("Michy", difference.toString())
-
-//            notificationHelper.createSampleDataNotification(context,1,true)
-
-
-//            val currentTimeUnix: Long = c.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
-
-//            val unlockTimeUnix: Long  = l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
-
-//            val timeLeftToUnlock: Long = unlockTimeUnix - currentTimeUnix
 
 
         } else { // if no time selected let the current time set as the unlock time

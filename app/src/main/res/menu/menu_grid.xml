@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/grid_menu_item_back"
-        android:title="Back"
         android:icon="@drawable/ic_back"
+        android:title="Back"
         app:showAsAction="always" />
 </menu>

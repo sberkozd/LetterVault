@@ -24,7 +24,6 @@ class NotifyWorker @AssistedInject constructor(
         // Method to trigger an instant notification
 
         withContext(Dispatchers.Main) {
-            //Toast.makeText(applicationContext, "NotifyWorker Works!!", Toast.LENGTH_LONG).show()
             val noteId = inputData.getInt("noteId", 0)
             if (noteId != 0) {
                 val note = detailRepository.getNoteByID(noteId)

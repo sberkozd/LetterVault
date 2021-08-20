@@ -13,12 +13,10 @@ class HomeViewModel @Inject constructor(val repository: HomeRepository) : ViewMo
 
     var noteList: MutableLiveData<List<Note>> = MutableLiveData()
 
-    fun onCreate(){
+    fun onCreate() {
         viewModelScope.launch {
             noteList.value = repository.getAllNotes()
         }
     }
-
-
 }
 

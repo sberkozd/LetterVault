@@ -9,6 +9,4 @@ class HomeRepository @Inject constructor(private val letterDao: LetterDao) {
     suspend fun getAllNotes(): List<Note> {
         return letterDao.getAllNotes()
     }
-
-
 }

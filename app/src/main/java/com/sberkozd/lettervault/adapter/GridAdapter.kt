@@ -26,11 +26,6 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
         notifyDataSetChanged()
     }
 
-    init {
-
-    }
-
-
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         holder.binding.apply {
             this.noteRecyclerViewGridContext.text = items[position].noteContext

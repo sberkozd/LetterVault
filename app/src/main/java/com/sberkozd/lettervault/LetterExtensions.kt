@@ -1,6 +1,9 @@
 package com.sberkozd.lettervault
 
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -13,7 +16,7 @@ fun String.convertToDateRepresentation(): String {
     var date = Date(timestamp)
     var calendar = Calendar.getInstance()
     calendar.time = date
-    calendar.add(Calendar.HOUR_OF_DAY,3) // GMT +3
+    calendar.add(Calendar.HOUR_OF_DAY, 3) // GMT +3
     val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.GERMAN)
     return formatter.format(calendar.time)
 }

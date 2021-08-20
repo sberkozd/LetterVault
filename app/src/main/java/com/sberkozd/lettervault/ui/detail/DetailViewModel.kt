@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sberkozd.lettervault.adapter.GridAdapter
-import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.data.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -43,11 +41,11 @@ class DetailViewModel @Inject constructor(
     fun deleteNote() {
         viewModelScope.launch(Dispatchers.IO) {
             note.value?.let {
-                repository.deleteNote(it) }
+                repository.deleteNote(it)
+            }
 
         }
     }
-
 
 
 }
