@@ -37,6 +37,7 @@ class NotifyWorker @AssistedInject constructor(
 
                     NotificationHelper().sendNoteUnlockedNotification(
                         applicationContext,
+                        noteId = it.id,
                         1,
                         true,
                         name = it.noteTitle,

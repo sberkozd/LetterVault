@@ -2,13 +2,14 @@ package com.sberkozd.lettervault.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.sberkozd.lettervault.MainActivity
 import com.sberkozd.lettervault.R
 
@@ -41,6 +42,7 @@ class NotificationHelper : BroadcastReceiver() {
 
     fun sendNoteUnlockedNotification(
         context: Context,
+        noteId: Int,
         importance: Int,
         showBadge: Boolean,
         name: String,
@@ -56,17 +58,26 @@ class NotificationHelper : BroadcastReceiver() {
             setStyle(
                 NotificationCompat.BigTextStyle().bigText("A note has been unlocked. Tap to view")
             ) // 6
+
             priority = NotificationCompat.PRIORITY_HIGH // 7
             setAutoCancel(true) // 8
 
-            // 1
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            // 2
-            val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+
+            val bundle = Bundle()
+            bundle.putInt("id", noteId)
+
+            val pendingIntent = NavDeepLinkBuilder(context)
+                .setComponentName(MainActivity::class.java)
+                .setGraph(R.navigation.my_nav)
+                .setDestination(R.id.detailFragment)
+                .setArguments(bundle)
+                .createPendingIntent()
             // 3
             setContentIntent(pendingIntent)
+
+
         }
+
 
         // 1
         val notificationManager = NotificationManagerCompat.from(context)

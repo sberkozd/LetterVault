@@ -123,13 +123,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             R.id.home_menu_item_more -> {
                 val notificationHelper = NotificationHelper()
 
-                context?.let {
+            /*    context?.let {
                     notificationHelper.sendNoteUnlockedNotification(
                         it, 2,
                         true, "Letter Vault", "You have an unlocked note!"
                     )
                 }
-
+*/
                 Toast.makeText(context, "To be implemented!", Toast.LENGTH_SHORT).show()
                 true
             }

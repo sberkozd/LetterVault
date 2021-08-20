@@ -20,6 +20,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.databinding.FragmentAddBinding
+import com.sberkozd.lettervault.notification.NotificationHelper
 import com.sberkozd.lettervault.notification.NotifyWorker
 import com.sberkozd.lettervault.observeInLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,6 +95,7 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
                 //findNavController().navigate(AddFragmentDirections.actionAddFragmentToHomeFragment())
                 Toast.makeText(requireContext(), "${noteTVEditText.text}", Toast.LENGTH_SHORT)
                     .show()
+
 
                 // Toast.makeText(requireContext(), "${addViewModel.onSaveMenuItemClicked()}", Toast.LENGTH_SHORT).show()
 
