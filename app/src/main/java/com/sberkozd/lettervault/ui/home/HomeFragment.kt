@@ -1,10 +1,8 @@
 package com.sberkozd.lettervault.ui.home
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +18,6 @@ import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.databinding.FragmentHomeBinding
 import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Boolean.getBoolean
 
 
 @AndroidEntryPoint
@@ -67,8 +64,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        loadSettings()
 
 
         gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
@@ -139,17 +134,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onDestroyView()
     }
 
-    private fun loadSettings() {
-        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val notifications = sp.getBoolean("notifications", true)
-        val darkMode = sp.getBoolean("darkMode", false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        homeViewModel.onCreate()
-        homeViewModel.noteList.observe(viewLifecycleOwner, {
-            noteAdapter?.setItems(it)
-        })
-    }
 }
