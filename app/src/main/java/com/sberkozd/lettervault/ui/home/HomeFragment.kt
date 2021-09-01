@@ -1,12 +1,15 @@
 package com.sberkozd.lettervault.ui.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,7 @@ import com.sberkozd.lettervault.adapter.NoteAdapter
 import com.sberkozd.lettervault.databinding.FragmentHomeBinding
 import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Boolean.getBoolean
 
 
 @AndroidEntryPoint
@@ -64,13 +68,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loadSettings()
+
 
         gridLayoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         noteAdapter = NoteAdapter()
-        recyclerView = binding.homeFragmentRV
-        recyclerView?.layoutManager = gridLayoutManager
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.adapter = noteAdapter
+
+        binding.homeFragmentRV.let {
+            it.layoutManager = gridLayoutManager
+            it.setHasFixedSize(true)
+            it.adapter = noteAdapter
+        }
+
 
         homeViewModel.noteList.observe(viewLifecycleOwner, {
             noteAdapter?.setItems(it)
@@ -115,7 +124,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
             R.id.home_menu_item_more -> {
 
-                Toast.makeText(context, "To be implemented!", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSettingsFragment())
                 true
             }
             else -> {
@@ -130,6 +139,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onDestroyView()
     }
 
+    private fun loadSettings() {
+        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val notifications = sp.getBoolean("notifications", true)
+        val darkMode = sp.getBoolean("darkMode", false)
+    }
+
     override fun onResume() {
         super.onResume()
         homeViewModel.onCreate()
@@ -137,6 +152,4 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             noteAdapter?.setItems(it)
         })
     }
-
-
 }

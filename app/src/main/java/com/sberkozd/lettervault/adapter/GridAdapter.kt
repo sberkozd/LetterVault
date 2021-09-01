@@ -48,9 +48,10 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
             } else {
                 this.noteRecyclerViewGridOpenedTV.text = "To be opened: "
+                this.noteRecyclerViewGridTitle.text = "Locked Letter"
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.VISIBLE
-                this.noteRecyclerViewGridContext.text = "Locked Letter"
+                this.noteRecyclerViewGridContext.visibility = View.GONE
 
             }
             this.root.setOnClickListener {

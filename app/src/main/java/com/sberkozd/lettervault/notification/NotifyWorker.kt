@@ -3,6 +3,7 @@ package com.sberkozd.lettervault.notification
 import android.content.Context
 import androidx.annotation.NonNull
 import androidx.hilt.work.HiltWorker
+import androidx.preference.PreferenceManager
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.sberkozd.lettervault.ui.detail.DetailRepository
@@ -15,12 +16,13 @@ import kotlinx.coroutines.withContext
 class NotifyWorker @AssistedInject constructor(
     @Assisted context: Context?,
     @Assisted params: WorkerParameters?,
-    private val detailRepository: DetailRepository
+    private val detailRepository: DetailRepository,
 ) :
     CoroutineWorker(context!!, params!!) {
 
     @NonNull
     override suspend fun doWork(): Result {
+
         // Method to trigger an instant notification
 
         withContext(Dispatchers.Main) {
@@ -34,14 +36,20 @@ class NotifyWorker @AssistedInject constructor(
 
                     detailRepository.updateNote(it)
 
-                    NotificationHelper().sendNoteUnlockedNotification(
-                        applicationContext,
-                        noteId = it.id,
-                        1,
-                        true,
-                        name = it.noteTitle,
-                        description = it.noteContext
-                    )
+                    val isNotificationEnabled =
+                        PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                            .getBoolean("notifications", true)
+                    if (isNotificationEnabled) {
+                        NotificationHelper().sendNoteUnlockedNotification(
+                            applicationContext,
+                            noteId = it.id,
+                            1,
+                            true,
+                            name = it.noteTitle,
+                            description = it.noteContext
+                        )
+                    }
+
                 }
 
             }

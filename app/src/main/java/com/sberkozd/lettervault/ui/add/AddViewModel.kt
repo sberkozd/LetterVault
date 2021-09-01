@@ -2,6 +2,7 @@ package com.sberkozd.lettervault.ui.add
 
 import android.os.Build
 import android.text.Editable
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,7 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
 
     private val eventChannel = Channel<Event>(Channel.BUFFERED)
     val eventsFlow = eventChannel.receiveAsFlow()
+
 
     var day = 0
     var month = 0
@@ -77,22 +79,31 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
             unlockTime = ""
         }
 
-        val note = Note(
-            0, unlockTime,
-            description.toString(), title.toString(), if (unlockTime.isEmpty()) 0 else 1
-        )
-
-        viewModelScope.launch() {
-            val noteId = addNote(note)
-            withContext(Dispatchers.Main) {
-                eventChannel.send(Event.noteAdded(noteId, difference))
+        if (title.toString() == "") {
+            viewModelScope.launch() {
+                val titleIsEmpty = "You can not leave title blank!"
+                    eventChannel.send(Event.showToast(titleIsEmpty))
             }
-        }
+        } else {
+            val note = Note(
+                0, unlockTime,
+                description.toString(), title.toString(), if (unlockTime.isEmpty()) 0 else 1
+            )
 
+            viewModelScope.launch() {
+                val noteId = addNote(note)
+                withContext(Dispatchers.Main) {
+                    eventChannel.send(Event.noteAdded(noteId, difference))
+                }
+            }
+
+        }
     }
+
 
     sealed class Event {
         data class noteAdded(val noteId: Int, val difference: Long?) : Event()
+        data class showToast(val titleIsEmpty : String) : Event()
     }
 
 }
