@@ -2,9 +2,11 @@ package com.sberkozd.lettervault.ui.add
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.text.format.DateFormat
 import android.view.*
 import android.widget.DatePicker
 import android.widget.EditText
@@ -40,8 +42,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-
     }
 
     override fun onCreateView(
@@ -65,8 +65,14 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
                     }
                     findNavController().popBackStack()
                 }
-                is AddViewModel.Event.showToast -> {
+                is AddViewModel.Event.showNoteEmptyToast -> {
+                    noteEmptyToast()
+                }
+                is AddViewModel.Event.showTitleEmptyToast -> {
                     emptyTitleToast()
+                }
+                is AddViewModel.Event.showDescriptionEmptyToast -> {
+                    emptyDescriptionToast()
                 }
             }
         }.observeInLifecycle(viewLifecycleOwner)
@@ -122,12 +128,20 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         Toast.makeText(requireContext(), "You can not leave title blank!", Toast.LENGTH_SHORT).show()
     }
 
+    private fun noteEmptyToast(){
+        Toast.makeText(requireContext(), "You can not save an empty note!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun emptyDescriptionToast(){
+        Toast.makeText(requireContext(), "You can not leave description blank!", Toast.LENGTH_SHORT).show()
+    }
 
     private fun pickDate() {
         addViewModel.getDateTimeCalendar()
 
         DatePickerDialog(
             requireContext(),
+            R.style.DatePickerTheme,
             this,
             addViewModel.year,
             addViewModel.month,
@@ -143,6 +157,7 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
 
         TimePickerDialog(
             requireContext(),
+            R.style.TimePickerTheme,
             this,
             addViewModel.hour,
             addViewModel.minute,

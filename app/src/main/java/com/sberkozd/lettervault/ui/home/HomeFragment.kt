@@ -1,16 +1,13 @@
 package com.sberkozd.lettervault.ui.home
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.sberkozd.lettervault.R
@@ -30,8 +27,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding get() = _binding!!
 
     private var gridLayoutManager: GridLayoutManager? = null
-
-    private var recyclerView: RecyclerView? = null
 
     private var noteAdapter: NoteAdapter? = null
 

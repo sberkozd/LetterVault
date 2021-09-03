@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
@@ -33,8 +34,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-
     }
 
     override fun onCreateView(
@@ -153,17 +152,14 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun showWarningForDeletion() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _, _ ->
+        builder.setPositiveButton(Html.fromHtml("<font color='#FFFFFF'>Yes</font>")) { _, _ ->
 
             detailViewModel.deleteNote()
             backButtonCallback.remove()
             findNavController().popBackStack()
         }
-        builder.setNegativeButton("No") { _, _ ->
-
+        builder.setNegativeButton(Html.fromHtml("<font color='#FFFFFF'>No</font>")) { _, _ ->
         }
-
-        builder.setTitle("Delete Note?")
         builder.setMessage("Are you sure you want to delete the note?")
         builder.create().show()
     }

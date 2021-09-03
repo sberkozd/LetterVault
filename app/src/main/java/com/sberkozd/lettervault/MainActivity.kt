@@ -27,40 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.setNavigationIcon(R.drawable.ic_back)
 
-        // toolbar.navigationIcon.apply { colorFilter(resources.getColor(R.color.white)) }
-
         toolbar.setupWithNavController(navHostFragment.navController)
 
-
-        // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
-
-
-//
-//    private fun saveData(){
-//
-//        val notificationPreference : String
-//        val themePreference : String
-//
-//        val sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.apply{
-//            putBoolean("DARKMODE_KEY", binding.darkModeSwitch.isChecked)
-//            putBoolean("NOTIFICATION_KEY", binding.notificationSwitch.isChecked)
-//        }.apply()
-//
-//        Toast.makeText(this,"Data saved", Toast.LENGTH_SHORT).show()
-//    }
-//
-//    private fun loadPreferences(){
-//        val sharedPreferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE)
-//        val savedBooleanDarkMode = sharedPreferences.getBoolean("DARKMODE_KEY", false)
-//        val savedBooleanNotification = sharedPreferences.getBoolean("NOTIFICATION_KEY", true)
-//
-//        binding.darkModeSwitch.isChecked = savedBooleanDarkMode
-//        binding.notificationSwitch.isChecked = savedBooleanNotification
-//    }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return if (onBackPressedDispatcher.hasEnabledCallbacks()) {

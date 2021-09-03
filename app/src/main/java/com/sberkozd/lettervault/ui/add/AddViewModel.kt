@@ -2,7 +2,6 @@ package com.sberkozd.lettervault.ui.add
 
 import android.os.Build
 import android.text.Editable
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -79,31 +78,49 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
             unlockTime = ""
         }
 
-        if (title.toString() == "") {
-            viewModelScope.launch() {
-                val titleIsEmpty = "You can not leave title blank!"
-                    eventChannel.send(Event.showToast(titleIsEmpty))
-            }
-        } else {
-            val note = Note(
-                0, unlockTime,
-                description.toString(), title.toString(), if (unlockTime.isEmpty()) 0 else 1
-            )
-
-            viewModelScope.launch() {
-                val noteId = addNote(note)
-                withContext(Dispatchers.Main) {
-                    eventChannel.send(Event.noteAdded(noteId, difference))
+        when {
+            title.toString() + description.toString() == "" -> {
+                viewModelScope.launch {
+                    val noteIsEmpty = "You can not save an empty note!"
+                    eventChannel.send(Event.showNoteEmptyToast(noteIsEmpty))
                 }
             }
+            title.toString() == "" -> {
+                viewModelScope.launch() {
+                    val titleIsEmpty = "You can not leave title blank!"
+                    eventChannel.send(Event.showTitleEmptyToast(titleIsEmpty))
+                }
+            }
+            description.toString() == "" -> {
+                viewModelScope.launch() {
+                    val descriptionIsEmpty = "You can not leave description blank!"
+                    eventChannel.send(Event.showDescriptionEmptyToast(descriptionIsEmpty))
+                }
+            }
+            else -> {
+                val note = Note(
+                    0, unlockTime,
+                    description.toString(), title.toString(), if (unlockTime.isEmpty()) 0 else 1
+                )
 
+                viewModelScope.launch() {
+                    val noteId = addNote(note)
+                    withContext(Dispatchers.Main) {
+                        eventChannel.send(Event.noteAdded(noteId, difference))
+                    }
+                }
+
+            }
         }
     }
 
 
     sealed class Event {
         data class noteAdded(val noteId: Int, val difference: Long?) : Event()
-        data class showToast(val titleIsEmpty : String) : Event()
+        data class showTitleEmptyToast(val titleIsEmpty: String) : Event()
+        data class showDescriptionEmptyToast(val descriptionIsEmpty: String) : Event()
+        data class showNoteEmptyToast(val showNoteEmptyToast: String) : Event()
+
     }
 
 }

@@ -30,11 +30,6 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
     private var gridAdapter: GridAdapter? = null
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
