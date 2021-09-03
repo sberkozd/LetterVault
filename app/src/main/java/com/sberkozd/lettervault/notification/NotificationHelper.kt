@@ -54,13 +54,14 @@ class NotificationHelper : BroadcastReceiver() {
             setContentTitle(name)
             setContentText(description)
             setStyle(
-                NotificationCompat.BigTextStyle().bigText(R.string.note_unlocked.toString())
-            )
+                NotificationCompat.BigTextStyle().bigText(
+                    context.getString(R.string.note_unlocked)
+                ))
 
-            priority = NotificationCompat.PRIORITY_HIGH
-            setAutoCancel(true)
+                        priority = NotificationCompat . PRIORITY_HIGH
+                        setAutoCancel(true)
 
-            val bundle = Bundle()
+                val bundle = Bundle ()
             bundle.putInt("id", noteId)
 
             val pendingIntent = NavDeepLinkBuilder(context)

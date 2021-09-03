@@ -43,13 +43,13 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
                     this.noteRecyclerViewGridOpenedTV.visibility = View.GONE
                 } else {
                     this.noteRecyclerViewGridOpenedTV.visibility = View.VISIBLE
-                    this.noteRecyclerViewGridOpenedTV.text = R.string.opened.toString()
+                    this.noteRecyclerViewGridOpenedTV.text = holder.itemView.context.getString(R.string.opened)
                 }
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
             } else {
-                this.noteRecyclerViewGridOpenedTV.text = R.string.to_be_opened.toString()
-                this.noteRecyclerViewGridTitle.text = R.string.locked_letter.toString()
+                this.noteRecyclerViewGridOpenedTV.text = holder.itemView.context.getString(R.string.to_be_opened)
+                this.noteRecyclerViewGridTitle.text = holder.itemView.context.getString(R.string.locked_letter)
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.VISIBLE
                 this.noteRecyclerViewGridContext.visibility = View.GONE
