@@ -63,5 +63,5 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.sberkozd.lettervault.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
 </navigation>
