@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">LetterVault</string>
+    <string name="locked_note_sharing">You cannot share a locked note!</string>
+    <string name="delete_confirm">Are you sure you want to delete the note?</string>
+    <string name="title_empty">You can not leave title blank!</string>
+    <string name="desc_empty">You can not leave description blank!</string>
+    <string name="note_empty">You can not save an empty note!</string>
+    <string name="opened">Opened: </string>
+    <string name="to_be_opened">To be opened: </string>
+    <string name="locked_letter">Locked Letter</string>
+    <string name="note_unlocked">A note has been unlocked. Tap to view</string>
 </resources>

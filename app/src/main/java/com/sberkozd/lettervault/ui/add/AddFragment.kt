@@ -2,11 +2,9 @@ package com.sberkozd.lettervault.ui.add
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
-import android.text.format.DateFormat
 import android.view.*
 import android.widget.DatePicker
 import android.widget.EditText
@@ -27,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.onEach
 import java.util.concurrent.TimeUnit
 
-
 @AndroidEntryPoint
 class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetListener,
     TimePickerDialog.OnTimeSetListener {
@@ -37,7 +34,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     private var _binding: FragmentAddBinding? = null
 
     private val binding get() = _binding!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +72,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
                 }
             }
         }.observeInLifecycle(viewLifecycleOwner)
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -104,15 +99,9 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
     }
 
     private fun scheduleToast(difference: Long, noteId: Int) {
-        //we set a tag to be able to cancel all work of this type if needed
         val workTag = "notificationWork"
 
-        //store DBEventID to pass it to the PendingIntent and open the appropriate event page on notification click
-
         val inputData: Data = Data.Builder().putInt("noteId", noteId).build()
-
-        // we then retrieve it inside the NotifyWorker with:
-        // final int DBEventID = getInputData().getInt(DBEventIDTag, ERROR_VALUE);
 
         val notificationWork = OneTimeWorkRequest.Builder(NotifyWorker::class.java)
             .setInitialDelay(difference, TimeUnit.SECONDS)
@@ -120,20 +109,19 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
             .addTag(workTag)
             .build()
 
-        WorkManager.getInstance(requireContext()).enqueue(notificationWork);
-
+        WorkManager.getInstance(requireContext()).enqueue(notificationWork)
     }
 
-    private fun emptyTitleToast(){
-        Toast.makeText(requireContext(), "You can not leave title blank!", Toast.LENGTH_SHORT).show()
+    private fun emptyTitleToast() {
+        Toast.makeText(requireContext(), R.string.title_empty, Toast.LENGTH_SHORT).show()
     }
 
-    private fun noteEmptyToast(){
-        Toast.makeText(requireContext(), "You can not save an empty note!", Toast.LENGTH_SHORT).show()
+    private fun noteEmptyToast() {
+        Toast.makeText(requireContext(), R.string.note_empty, Toast.LENGTH_SHORT).show()
     }
 
-    private fun emptyDescriptionToast(){
-        Toast.makeText(requireContext(), "You can not leave description blank!", Toast.LENGTH_SHORT).show()
+    private fun emptyDescriptionToast() {
+        Toast.makeText(requireContext(), R.string.desc_empty, Toast.LENGTH_SHORT).show()
     }
 
     private fun pickDate() {
@@ -148,7 +136,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
             addViewModel.day
         ).show()
     }
-
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         addViewModel.savedDay = dayOfMonth

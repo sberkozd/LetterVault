@@ -13,9 +13,7 @@ import androidx.navigation.NavDeepLinkBuilder
 import com.sberkozd.lettervault.MainActivity
 import com.sberkozd.lettervault.R
 
-
 class NotificationHelper : BroadcastReceiver() {
-
 
     fun createNotificationChannel(
         context: Context,
@@ -56,12 +54,11 @@ class NotificationHelper : BroadcastReceiver() {
             setContentTitle(name)
             setContentText(description)
             setStyle(
-                NotificationCompat.BigTextStyle().bigText("A note has been unlocked. Tap to view")
+                NotificationCompat.BigTextStyle().bigText(R.string.note_unlocked.toString())
             )
 
             priority = NotificationCompat.PRIORITY_HIGH
             setAutoCancel(true)
-
 
             val bundle = Bundle()
             bundle.putInt("id", noteId)
@@ -75,17 +72,12 @@ class NotificationHelper : BroadcastReceiver() {
 
             setContentIntent(pendingIntent)
         }
-
-
         val notificationManager = NotificationManagerCompat.from(context)
 
         notificationManager.notify(1001, notificationBuilder.build())
-
     }
 
-
     override fun onReceive(context: Context?, intent: Intent?) {
-
 
     }
 }

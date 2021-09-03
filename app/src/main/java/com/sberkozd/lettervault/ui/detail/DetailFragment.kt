@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.InputType
 import android.text.TextWatcher
 import android.view.*
@@ -14,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.databinding.FragmentDetailBinding
@@ -59,23 +59,16 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     detailNoteTV.visibility = View.GONE
                     activity?.title = this.detailNoteDateOpened.text
                 }
-
             }
         }
-
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.detailNoteTV.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -97,12 +90,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 requireActivity().onBackPressed()
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             backButtonCallback
         )
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -130,7 +121,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                         if (it.isLocked == 1) {
                             Toast.makeText(
                                 requireContext(),
-                                "You can not share a locked note!",
+                                R.string.locked_note_sharing,
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
@@ -149,20 +140,21 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         }
     }
 
-
     private fun showWarningForDeletion() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton(Html.fromHtml("<font color='#FFFFFF'>Yes</font>")) { _, _ ->
 
-            detailViewModel.deleteNote()
-            backButtonCallback.remove()
-            findNavController().popBackStack()
-        }
-        builder.setNegativeButton(Html.fromHtml("<font color='#FFFFFF'>No</font>")) { _, _ ->
-        }
-        builder.setMessage("Are you sure you want to delete the note?")
-        builder.create().show()
+        MaterialAlertDialogBuilder(
+            requireContext(),
+            R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
+        )
+            .setMessage(R.string.delete_confirm)
+            .setPositiveButton("Yes") { _, _ ->
+                detailViewModel.deleteNote()
+                backButtonCallback.remove()
+                findNavController().popBackStack()
+            }
+            .setNegativeButton("No") { _, _ ->
+            }
+            .show()
     }
-
-
 }

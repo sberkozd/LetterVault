@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.convertToDateRepresentation
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvGridBinding
@@ -38,21 +39,20 @@ class GridAdapter : RecyclerView.Adapter<GridAdapter.GridViewHolder>() {
             }
             this.noteRecyclerViewGridTitle.text = items[position].noteTitle
             if (items[position].isLocked == 0) {
-                if(items[position].timeUnlocked.isBlank()){
+                if (items[position].timeUnlocked.isBlank()) {
                     this.noteRecyclerViewGridOpenedTV.visibility = View.GONE
-                }else{
+                } else {
                     this.noteRecyclerViewGridOpenedTV.visibility = View.VISIBLE
-                    this.noteRecyclerViewGridOpenedTV.text = "Opened: "
+                    this.noteRecyclerViewGridOpenedTV.text = R.string.opened.toString()
                 }
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.VISIBLE
             } else {
-                this.noteRecyclerViewGridOpenedTV.text = "To be opened: "
-                this.noteRecyclerViewGridTitle.text = "Locked Letter"
+                this.noteRecyclerViewGridOpenedTV.text = R.string.to_be_opened.toString()
+                this.noteRecyclerViewGridTitle.text = R.string.locked_letter.toString()
                 this.noteRecyclerViewGridLockOpenedIcon.visibility = View.GONE
                 this.noteRecyclerViewGridLockClosedIcon.visibility = View.VISIBLE
                 this.noteRecyclerViewGridContext.visibility = View.GONE
-
             }
             this.root.setOnClickListener {
                 it.findNavController()
