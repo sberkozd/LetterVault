@@ -1,4 +1,4 @@
-package com.sberkozd.lettervault.adapter
+package com.sberkozd.lettervault.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,6 @@ import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.data.Note
 import com.sberkozd.lettervault.databinding.ItemNoteRvBinding
 import com.sberkozd.lettervault.ui.home.HomeFragmentDirections
-import kotlin.coroutines.coroutineContext
 
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 

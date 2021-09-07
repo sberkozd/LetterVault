@@ -13,8 +13,8 @@ import java.util.*
 
 fun String.convertToDateRepresentation(): String {
     val timestamp = this.toLong()
-    var date = Date(timestamp)
-    var calendar = Calendar.getInstance()
+    val date = Date(timestamp)
+    val calendar = Calendar.getInstance()
     calendar.time = date
     val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.GERMAN)
     return formatter.format(calendar.time)

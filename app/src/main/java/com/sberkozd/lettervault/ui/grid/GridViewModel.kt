@@ -15,7 +15,7 @@ class GridViewModel @Inject constructor(val repository: GridRepository) : ViewMo
 
     fun onCreate() {
         viewModelScope.launch {
-            noteList.value = repository.getAllNotes()
+            noteList.postValue(repository.getAllNotes())
         }
     }
 }

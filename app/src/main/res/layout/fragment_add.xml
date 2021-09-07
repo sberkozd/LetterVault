@@ -12,7 +12,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginTop="18dp"
         android:hint="Note Title"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
         android:gravity="top"
         android:inputType="textMultiLine"
         android:hint="Type"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/note_title_TV" />

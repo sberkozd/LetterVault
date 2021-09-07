@@ -77,24 +77,21 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
         } else { // if no time selected let the current time set as the unlock time
             unlockTime = ""
         }
-
         when {
-            title.toString() + description.toString() == "" -> {
+
+            title.toString().isBlank() && description.toString().isBlank() -> {
                 viewModelScope.launch {
-                    val noteIsEmpty = "You can not save an empty note!"
-                    eventChannel.send(Event.showNoteEmptyToast(noteIsEmpty))
+                    eventChannel.send(Event.showNoteEmptyToast)
                 }
             }
-            title.toString() == "" -> {
-                viewModelScope.launch() {
-                    val titleIsEmpty = "You can not leave title blank!"
-                    eventChannel.send(Event.showTitleEmptyToast(titleIsEmpty))
+            title.toString().isBlank() -> {
+                viewModelScope.launch {
+                    eventChannel.send(Event.showTitleEmptyToast)
                 }
             }
-            description.toString() == "" -> {
-                viewModelScope.launch() {
-                    val descriptionIsEmpty = "You can not leave description blank!"
-                    eventChannel.send(Event.showDescriptionEmptyToast(descriptionIsEmpty))
+            description.toString().isBlank() -> {
+                viewModelScope.launch {
+                    eventChannel.send(Event.showDescriptionEmptyToast)
                 }
             }
             else -> {
@@ -103,7 +100,7 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
                     description.toString(), title.toString(), if (unlockTime.isEmpty()) 0 else 1
                 )
 
-                viewModelScope.launch() {
+                viewModelScope.launch {
                     val noteId = addNote(note)
                     withContext(Dispatchers.Main) {
                         eventChannel.send(Event.noteAdded(noteId, difference))
@@ -117,9 +114,9 @@ class AddViewModel @Inject constructor(val repository: AddRepository) : ViewMode
 
     sealed class Event {
         data class noteAdded(val noteId: Int, val difference: Long?) : Event()
-        data class showTitleEmptyToast(val titleIsEmpty: String) : Event()
-        data class showDescriptionEmptyToast(val descriptionIsEmpty: String) : Event()
-        data class showNoteEmptyToast(val showNoteEmptyToast: String) : Event()
+        object showTitleEmptyToast : Event()
+        object showDescriptionEmptyToast : Event()
+        object showNoteEmptyToast : Event()
 
     }
 

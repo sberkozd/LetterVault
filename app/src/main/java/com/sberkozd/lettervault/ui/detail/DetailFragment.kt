@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sberkozd.lettervault.R
 import com.sberkozd.lettervault.convertToDateRepresentation
+import com.sberkozd.lettervault.databinding.FragmentAddBinding
 import com.sberkozd.lettervault.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,9 +26,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val detailViewModel: DetailViewModel by viewModels()
 
-    private var _binding: FragmentDetailBinding? = null
-
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentDetailBinding.inflate(layoutInflater) }
 
     private lateinit var backButtonCallback: OnBackPressedCallback
 
@@ -41,7 +40,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailBinding.inflate(inflater, container, false)
 
         detailViewModel.note.observe(viewLifecycleOwner) {
             binding.apply {

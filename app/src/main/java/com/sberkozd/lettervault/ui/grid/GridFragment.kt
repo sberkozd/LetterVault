@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.adapter.GridAdapter
+import com.sberkozd.lettervault.ui.adapter.GridAdapter
 import com.sberkozd.lettervault.databinding.FragmentGridBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,9 +20,7 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
     private val gridViewModel: GridViewModel by viewModels()
 
-    private var _binding: FragmentGridBinding? = null
-
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentGridBinding.inflate(layoutInflater) }
 
     private var gridLayoutManager: GridLayoutManager? = null
 
@@ -35,8 +33,6 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentGridBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -58,11 +54,6 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
         binding.gridFragmentFab.setOnClickListener {
             findNavController().navigate(GridFragmentDirections.actionGridFragmentToAddFragment())
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun onResume() {

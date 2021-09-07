@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,9 +32,7 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
 
     private val addViewModel: AddViewModel by viewModels()
 
-    private var _binding: FragmentAddBinding? = null
-
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentAddBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,6 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -62,13 +60,13 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
                     findNavController().popBackStack()
                 }
                 is AddViewModel.Event.showNoteEmptyToast -> {
-                    noteEmptyToast()
+                    showToast(R.string.note_empty)
                 }
                 is AddViewModel.Event.showTitleEmptyToast -> {
-                    emptyTitleToast()
+                    showToast(R.string.title_empty)
                 }
                 is AddViewModel.Event.showDescriptionEmptyToast -> {
-                    emptyDescriptionToast()
+                    showToast(R.string.desc_empty)
                 }
             }
         }.observeInLifecycle(viewLifecycleOwner)
@@ -112,16 +110,8 @@ class AddFragment : Fragment(R.layout.fragment_add), DatePickerDialog.OnDateSetL
         WorkManager.getInstance(requireContext()).enqueue(notificationWork)
     }
 
-    private fun emptyTitleToast() {
-        Toast.makeText(requireContext(), R.string.title_empty, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun noteEmptyToast() {
-        Toast.makeText(requireContext(), R.string.note_empty, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun emptyDescriptionToast() {
-        Toast.makeText(requireContext(), R.string.desc_empty, Toast.LENGTH_SHORT).show()
+    private fun showToast(@StringRes textResourceId : Int) {
+        Toast.makeText(requireContext(), textResourceId, Toast.LENGTH_SHORT).show()
     }
 
     private fun pickDate() {

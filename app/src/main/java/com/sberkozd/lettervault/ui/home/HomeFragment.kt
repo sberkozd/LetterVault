@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.sberkozd.lettervault.R
-import com.sberkozd.lettervault.adapter.NoteAdapter
+import com.sberkozd.lettervault.ui.adapter.NoteAdapter
 import com.sberkozd.lettervault.databinding.FragmentHomeBinding
 import com.sberkozd.lettervault.notification.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,9 +22,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    private var _binding: FragmentHomeBinding? = null
-
-    private val binding get() = _binding!!
+    private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
 
     private var gridLayoutManager: GridLayoutManager? = null
 
@@ -50,8 +48,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding.root
 
@@ -123,10 +119,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.onCreate()
+        homeViewModel.noteList.observe(viewLifecycleOwner, {
+            noteAdapter?.setItems(it)
+        })
     }
 
 }

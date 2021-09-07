@@ -23,7 +23,7 @@ class DetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            note.value = repository.getNoteByID(noteId!!) //
+            note.postValue(repository.getNoteByID(noteId!!)) //
         }
     }
 

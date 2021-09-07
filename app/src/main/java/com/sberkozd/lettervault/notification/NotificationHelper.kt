@@ -57,7 +57,6 @@ class NotificationHelper : BroadcastReceiver() {
                 NotificationCompat.BigTextStyle().bigText(
                     context.getString(R.string.note_unlocked)
                 ))
-
                         priority = NotificationCompat . PRIORITY_HIGH
                         setAutoCancel(true)
 
